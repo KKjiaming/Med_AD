@@ -6,7 +6,15 @@ export function parseNumber(value) {
 }
 
 export function getActiveFields(modelId) {
-  return fields.filter((field) => field.models.includes(modelId));
+  return fields.filter(
+    (field) => !field.inputOnly && field.models.includes(modelId),
+  );
+}
+
+export function getInputFields(modelId) {
+  return fields.filter(
+    (field) => field.inputOnly || field.models.includes(modelId),
+  );
 }
 
 export function validateForm(form, language = 'en') {
@@ -18,10 +26,9 @@ export function validateForm(form, language = 'en') {
 
   const values = {
     modelId: form.modelId,
-    biologicalStage: form.biologicalStage,
   };
 
-  for (const field of getActiveFields(form.modelId)) {
+  for (const field of getInputFields(form.modelId)) {
     if (field.type === 'select') {
       if (!field.options.some((option) => option.value === form[field.id])) {
         return {

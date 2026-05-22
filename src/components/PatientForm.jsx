@@ -59,20 +59,15 @@ function PatientForm({ form, language, isPredicting, onFieldChange, onSubmit }) 
         <div>
           <p className="section-kicker">{t(language, 'mainModelLayer')}</p>
           <h2>{t(language, 'chooseModel')}</h2>
+          <p className="model-helper">{t(language, 'fixedModelHelper')}</p>
         </div>
-        <select
-          id="modelId"
-          name="modelId"
-          value={form.modelId}
-          onChange={onFieldChange}
-          aria-label={t(language, 'scoringModel')}
-        >
-          {modelOptions.map((model) => (
-            <option key={model.id} value={model.id}>
-              {model.label} - {model.variableCount} {t(language, 'variables')}
-            </option>
-          ))}
-        </select>
+        <div className="fixed-model-badge" aria-label={t(language, 'scoringModel')}>
+          <strong>{modelOptions.find((model) => model.id === form.modelId)?.label}</strong>
+          <span>
+            {modelOptions.find((model) => model.id === form.modelId)?.variableCount}{' '}
+            {t(language, 'variables')}
+          </span>
+        </div>
       </section>
 
       {variableGroups.map((group) => (
@@ -88,7 +83,7 @@ function PatientForm({ form, language, isPredicting, onFieldChange, onSubmit }) 
                 field={field}
                 value={form[field.id]}
                 onChange={onFieldChange}
-                disabled={!field.models.includes(form.modelId)}
+                disabled={!field.inputOnly && !field.models.includes(form.modelId)}
                 language={language}
               />
             ))}

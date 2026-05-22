@@ -6,89 +6,100 @@ export const languageOptions = [
 
 const translations = {
   en: {
-    appTitle: 'Multidimensional Predictive Model for Alzheimer’s Disease',
+    appTitle: 'AD Multisystem Clinical Phenotype Explorer',
     appDescription:
-      'This project uses biological stage with clinical, blood, and imaging indicators to predict current Alzheimer’s disease stage and future progression risk.',
-    workflowKicker: 'Interpretable model route',
-    workflowTitle: 'Regression-first development, not black-box prediction',
-    workflowDescription:
-      'The prototype highlights an explanatory modeling pipeline: ordered Logistic regression is used as the statistical backbone, then three independent variable-selection routes are compared before building progressive score models.',
+      'A research prototype for explaining why clinical presentation may be heavier or milder than biological AD burden, and for exploring future clinical stage progression risk.',
+    language: 'Language',
+    mainModelLayer: 'Analysis model',
+    chooseModel: 'Fixed phenotype model',
+    fixedModelHelper: 'score3 integrates current clinical stage with 19 multisystem variables.',
+    inputLayer: 'Input layer',
+    variables: 'variables',
+    additionalFactorsTitle: 'Other potential factors',
+    additionalFactorsText:
+      'The displayed variables are the current prototype inputs; other clinical, biological, imaging, lifestyle, and treatment-related factors may also affect phenotype and progression.',
+    predictButton: 'Generate phenotype overview',
+    predictingButton: 'Analyzing...',
+    predictingKicker: 'Prototype running',
+    predictingTitle: 'Building clinical phenotype explanation',
+    predictingText:
+      'Comparing clinical and biological stage, scoring multisystem burden, and assembling exploratory progression-risk output.',
+    predictingStep1: 'Clinical-biological relation',
+    predictingStep2: 'Multisystem phenotype burden',
+    predictingStep3: 'Progression-risk overview',
+    scoringModel: 'Scoring model',
+    predictionLayer: 'Result overview',
+    resultOverviewTitle: 'Clinical phenotype explanation and progression risk overview',
+    resultOverviewText:
+      'The output separates current phenotype burden from future progression risk so that both results remain clinically interpretable.',
+    currentClinicalStage: 'Current clinical stage',
+    biologicalStage: 'Biological stage',
+    clinicalBiologicalRelation: 'Clinical-biological relation',
+    phenotypeScore: 'Score3 multisystem phenotype score',
+    phenotypeBurden: 'Current multisystem phenotype burden',
+    progressionRisk: 'Future progression risk',
+    oneYearRisk: '1-year risk',
+    twoYearRisk: '2-year risk',
+    applicability: 'Applicability note',
+    prototypeScore: 'Phenotype score',
+    scaledScore: '0-100 phenotype burden',
+    model: 'Model',
+    variablesUsed: 'Variables used',
+    trainingAuc: '{auc} training AUC',
+    stageProbabilityProfile: 'Phenotype-stage profile',
+    stageLabel: '{stage}',
+    currentPhenotypeExplanation: 'Current clinical phenotype explanation',
+    currentPhenotypeContribution: 'Current clinical phenotype contribution sources',
+    contributionSentence:
+      'The current phenotype is mainly shaped by staging/demographic factors, cerebral small vessel disease, and coagulation-related signals.',
+    explanationLayer: 'Explanation layer',
+    systemContribution: 'Current phenotype contribution sources',
+    topVariables: 'Main drivers',
+    largestScoreDrivers: 'Current clinical phenotype main drivers',
+    driverSentence:
+      'Higher contributions from PWMH, DWMH, TT, ATIII and related variables suggest that small vessel disease and coagulation signals may help explain the heavier clinical presentation.',
+    futureRiskTitle: 'Exploratory future progression risk',
+    baselineClinicalStage: 'Baseline clinical stage',
+    futureRiskLevel: 'Future stage-progression risk level',
+    riskDrivers: 'Main risk drivers',
+    riskApplicability: 'Applicability note',
+    riskText:
+      'Based on the current clinical stage and score3 multisystem phenotype burden, this prototype suggests a {level} future clinical stage-progression risk. This is exploratory and should be interpreted together with longitudinal follow-up.',
+    stageCaution:
+      'For baseline Stage 5-6 patients, future progression estimates should be interpreted cautiously because remaining stage-progression space is limited.',
+    reportTitle: 'Individualized explanation report',
+    reportIntro:
+      'This report-style section automatically reorganizes the overview into a readable explanation for research communication.',
+    reportRelationTitle: '1. Current clinical-biological relation',
+    reportPhenotypeTitle: '2. Score3 multisystem phenotype explanation',
+    reportContributionTitle: '3. System contribution and main drivers',
+    reportRiskTitle: '4. Future progression risk',
+    reportLimitTitle: '5. Interpretation limits',
     workflowCompactKicker: 'Model route',
-    workflowCompactTitle: 'How this score was built',
-    workflowCompactDescription:
-      'The result summarizes an interpretable route: ordered Logistic regression as the backbone, with three variable-selection routes used before score construction.',
+    workflowCompactTitle: 'How this phenotype score was built',
     workflowBackbone: 'Backbone',
     workflowRouteLabel: 'Model development route',
     selectionKicker: 'Selection routes',
     selectionTitle: 'Variable selection routes are summarized for display',
     workflow: {
       route: {
-        describe: {
-          title: 'Descriptive analysis',
-          text: 'Clean variables, inspect distributions, and define clinical stage groups.',
-        },
         ordinal: {
           title: 'Ordered Logistic regression',
-          text: 'Run univariate and multivariable ordinal models for current clinical stage.',
-        },
-        collinearity: {
-          title: 'Collinearity check',
-          text: 'Reduce unstable overlap before final variable screening.',
+          text: 'Ordinal models support interpretable current phenotype scoring.',
         },
       },
       methods: {
-        randomForest: {
-          title: 'Random forest',
-          text: 'Captures nonlinear signals while ranking relevant variables.',
-        },
-        methodB: {
-          title: 'XX XX',
-          text: 'Additional masked variable-selection route.',
-        },
-        methodC: {
-          title: 'XX XX',
-          text: 'Additional masked variable-selection route.',
-        },
+        randomForest: { title: 'Random forest' },
+        methodB: { title: 'XX XX' },
+        methodC: { title: 'XX XX' },
       },
       scores: {
         score0: 'Biological stage only',
-        score1: 'Variables selected by all three methods',
-        score2: 'Variables selected by at least two methods',
-        score3: 'Variables selected by at least one method',
+        score1: 'Core selected variables',
+        score2: 'Expanded selected variables',
+        score3: 'Current multisystem phenotype variables',
       },
     },
-    language: 'Language',
-    mainModelLayer: 'Main model layer',
-    chooseModel: 'Choose a scoring model',
-    inputLayer: 'Input layer',
-    variables: 'variables',
-    additionalFactorsTitle: 'Other potential factors',
-    additionalFactorsText:
-      'The displayed variables are the current model inputs; other clinical, biological, imaging, lifestyle, and treatment-related factors may also matter.',
-    predictButton: 'Predict Clinical Stage',
-    predictingButton: 'Predicting...',
-    predictingKicker: 'Model running',
-    predictingTitle: 'Analyzing multidimensional profile',
-    predictingText:
-      'Standardizing inputs, applying the prototype score, and assembling the clinical stage output.',
-    predictingStep1: 'Clinical and biological stage',
-    predictingStep2: 'System contribution scan',
-    predictingStep3: 'Stage probability profile',
-    scoringModel: 'Scoring model',
-    predictionLayer: 'Prediction layer',
-    currentClinicalStage: 'Current Clinical Stage',
-    predictedStage: 'Predicted stage',
-    prototypeScore: 'Prototype score',
-    scaledScore: '0-100 scaled score',
-    model: 'Model',
-    variablesUsed: 'Variables used',
-    trainingAuc: '{auc} training AUC',
-    stageProbabilityProfile: 'Stage probability profile',
-    stageLabel: 'Stage {stage}',
-    explanationLayer: 'Explanation layer',
-    systemContribution: 'System contribution',
-    topVariables: 'Top variables',
-    largestScoreDrivers: 'Largest score drivers',
     modelDevelopmentEvidence: 'Model development evidence',
     trainingPerformance: 'Training performance',
     modelColumn: 'Model',
@@ -108,8 +119,8 @@ const translations = {
     interpretationLabel: 'Interpretation',
     prototypeNoteLabel: 'Prototype note',
     prototypeNote:
-      'Prototype scoring is for interface design only. Replace placeholder weights with the final ordinal logistic model coefficients before clinical or research use.',
-    footerLine1: 'Research prototype for Alzheimer’s disease clinical staging',
+      'Prototype scoring is for interface design and research communication only. Replace placeholder weights with final statistical coefficients before formal research or clinical use.',
+    footerLine1: 'Research prototype for AD multisystem clinical phenotype explanation',
     footerLine2: 'For model visualization and study communication only.',
     footerLine3:
       '© 2026 KKjiaming. All rights reserved. No copying, redistribution, derivative work, commercial use, or clinical use without written permission.',
@@ -119,7 +130,7 @@ const translations = {
       range: '{field} must be between {min}-{max}{unit}.',
     },
     groupTitles: {
-      stage: 'Staging and demographics',
+      stage: 'Baseline clinical and demographic information',
       csvd: 'Cerebral small vessel disease',
       coagulation: 'Coagulation',
       metabolic: 'Metabolic, renal, and cardiovascular',
@@ -134,12 +145,13 @@ const translations = {
     },
     modelTitles: {
       score0: 'Biological stage only',
-      score1: 'Variables selected by all three methods',
-      score2: 'Variables selected by at least two methods',
-      score3: 'Variables selected by at least one method',
+      score1: 'Core selected variables',
+      score2: 'Expanded selected variables',
+      score3: 'Current multisystem phenotype model',
     },
     fieldLabels: {
-      biologicalStage: 'Baseline biological stage',
+      currentClinicalStage: 'Current clinical stage',
+      biologicalStage: 'Biological stage',
       age: 'Age',
       educationYears: 'Education',
       BMI: 'BMI',
@@ -160,6 +172,7 @@ const translations = {
       CA72_4: 'CA72-4',
     },
     fieldNotes: {
+      currentClinicalStage: 'Clinician-assessed current clinical stage',
       biologicalStage: 'AD biological stage based on baseline pathology profile',
       age: 'Patient age at baseline assessment',
       educationYears: 'Total years of formal education',
@@ -180,121 +193,134 @@ const translations = {
       IgL: 'Immunoglobulin lambda light chain, an immune-related marker',
       CA72_4: 'Carbohydrate antigen 72-4, a tumor-associated serum marker',
     },
-    interpretation: {
-      '0-2': {
-        level: 'Predicted clinical stage 0-2',
-        text:
-          'The current multidimensional profile is closer to the earliest clinical stage group.',
-        advice:
-          'Review biological stage consistency, cognitive testing, and longitudinal monitoring plan.',
-      },
-      '3-4': {
-        level: 'Predicted clinical stage 3-4',
-        text:
-          'The current multidimensional profile is most compatible with an intermediate clinical stage.',
-        advice:
-          'This subgroup is also the most relevant population for exploratory progression-risk review.',
-      },
-      '5': {
-        level: 'Predicted clinical stage 5',
-        text:
-          'The current profile suggests a more advanced clinical burden than early-stage disease.',
-        advice:
-          'Inspect system-level contributions and confirm whether vascular, coagulation, metabolic, or inflammatory factors are driving the score.',
-      },
-      '6': {
-        level: 'Predicted clinical stage 6',
-        text:
-          'The current profile is closest to the most advanced clinical stage group in this prototype.',
-        advice:
-          'Use this output as an explanatory research signal and verify against clinical assessment.',
-      },
+    relationTypes: {
+      clinicalHeavy: 'Clinical-heavy / vulnerable phenotype',
+      clinicalMild: 'Clinical-mild / resilient phenotype',
+      concordant: 'Clinical-biological concordant phenotype',
+    },
+    burdenLevels: {
+      low: 'Low',
+      moderate: 'Moderate',
+      high: 'High',
+    },
+    riskLevels: {
+      low: 'Low',
+      moderate: 'Moderate',
+      high: 'High',
+      caution: 'Caution',
+    },
+    applicabilityText: {
+      suitable: '{stage} belongs to Stage 1-4 and is suitable for exploratory future-risk review.',
+      cautious: '{stage} belongs to Stage 5-6; future-risk output should be interpreted cautiously.',
+    },
+    reportTemplates: {
+      relation:
+        'The patient is currently {clinicalStage}, with {biologicalStage}. Compared with the clinical severity usually suggested by this biological burden, the presentation is classified as {relation}.',
+      phenotype:
+        'After adding score3 multisystem indicators, the current multisystem phenotype score is {score}/100, indicating {burden} burden. This suggests that the clinical presentation may not be explained by AD biology alone.',
+      contribution:
+        'System contribution analysis indicates that the current phenotype is mainly influenced by staging/demographics, cerebral small vessel disease, and coagulation-related factors. Top variables include {variables}.',
+      risk:
+        'The baseline clinical stage is {clinicalStage}. Based on current stage and multisystem phenotype burden, the exploratory estimated progression risk is {oneYear}% at 1 year and {twoYear}% at 2 years.',
+      limit:
+        'Future-risk output is exploratory and requires longitudinal follow-up. For Stage 5-6 baseline patients, remaining progression space is limited and estimates should be interpreted cautiously.',
     },
   },
   zh: {
-    appTitle: '阿尔茨海默病多维预测模型',
+    appTitle: 'AD 多系统临床表型解释与进展风险探索工具',
     appDescription:
-      '本项目结合生物学分期与临床、血液、影像指标，用于预测阿尔茨海默病患者当前临床分期及未来进展风险。',
-    workflowKicker: '解释型建模路线',
-    workflowTitle: '以回归建模为主线，而不是黑箱预测',
-    workflowDescription:
-      '该原型突出稳妥的解释型流程：以有序 Logistic 回归作为统计主线，再并列比较三种变量筛选路径，最后形成递进式评分模型。',
-    workflowCompactKicker: '模型路线',
-    workflowCompactTitle: '该评分如何构建',
-    workflowCompactDescription:
-      '结果区仅简要呈现解释型路线：以有序 Logistic 回归为主线，并结合三种变量筛选路径形成评分。',
-    workflowBackbone: '统计主线',
-    workflowRouteLabel: '模型开发路线',
-    selectionKicker: '筛选路径',
-    selectionTitle: '通过匿名筛选路径形成变量集',
-    workflow: {
-      route: {
-        describe: {
-          title: '描述性分析',
-          text: '完成变量清洗、分布检查和临床分期整理。',
-        },
-        ordinal: {
-          title: '有序 Logistic 回归',
-          text: '围绕当前临床分期进行单因素和多因素有序回归。',
-        },
-        collinearity: {
-          title: '共线性检查',
-          text: '在正式筛选前减少变量重叠和不稳定估计。',
-        },
-      },
-      methods: {
-        randomForest: {
-          title: '随机森林',
-          text: '捕捉非线性和交互信息，并对相关变量进行排序。',
-        },
-        methodB: {
-          title: 'XX XX',
-          text: '另一条已匿名处理的变量筛选路径。',
-        },
-        methodC: {
-          title: 'XX XX',
-          text: '另一条已匿名处理的变量筛选路径。',
-        },
-      },
-      scores: {
-        score0: '仅含生物学分期',
-        score1: '纳入三法均筛中的变量',
-        score2: '纳入至少两种方法入选的变量',
-        score3: '纳入任一方法入选的变量',
-      },
-    },
+      '用于解释阿尔茨海默病患者当前临床表现为什么相对生物学病理负担偏重或偏轻，并探索未来临床分期加重风险。',
     language: '语言',
-    mainModelLayer: '主模型层',
-    chooseModel: '选择评分模型',
+    mainModelLayer: '分析模型',
+    chooseModel: '固定表型评分模型',
+    fixedModelHelper: 'score3 结合当前临床分期与 19 个多系统变量。',
     inputLayer: '输入层',
     variables: '个变量',
     additionalFactorsTitle: '其他潜在因素',
     additionalFactorsText:
-      '当前展示的是模型已纳入变量；临床、生物学、影像、生活方式和治疗相关因素仍可能产生影响。',
-    predictButton: '预测临床分期',
-    predictingButton: '预测中...',
-    predictingKicker: '模型运行中',
-    predictingTitle: '正在分析多维度特征',
+      '当前展示的是原型已纳入变量；临床、生物学、影像、生活方式和治疗相关因素仍可能影响临床表型和未来进展。',
+    predictButton: '生成表型解释总览',
+    predictingButton: '分析中...',
+    predictingKicker: '原型运行中',
+    predictingTitle: '正在生成临床表型解释',
     predictingText:
-      '正在标准化输入、应用原型评分，并生成临床分期预测结果。',
-    predictingStep1: '临床与生物学分期',
-    predictingStep2: '系统贡献扫描',
-    predictingStep3: '分期概率分布',
+      '正在比较临床分期与生物学分期、计算多系统表型负担，并生成探索性进展风险结果。',
+    predictingStep1: '临床-生物学关系',
+    predictingStep2: '多系统表型负担',
+    predictingStep3: '未来进展风险总览',
     scoringModel: '评分模型',
-    predictionLayer: '预测层',
+    predictionLayer: '结果总览',
+    resultOverviewTitle: '临床表型解释与未来风险总览',
+    resultOverviewText:
+      '结果区区分“当前多系统表型负担”和“未来分期加重风险”，避免把当前解释和未来预测都笼统称为风险。',
     currentClinicalStage: '当前临床分期',
-    predictedStage: '预测分期',
-    prototypeScore: '原型评分',
-    scaledScore: '0-100 标准化评分',
+    biologicalStage: '生物学分期',
+    clinicalBiologicalRelation: '临床-生物学关系',
+    phenotypeScore: 'Score3 当前多系统表型得分',
+    phenotypeBurden: '当前多系统表型负担',
+    progressionRisk: '未来分期加重风险',
+    oneYearRisk: '1 年风险',
+    twoYearRisk: '2 年风险',
+    applicability: '适用性提示',
+    prototypeScore: '表型得分',
+    scaledScore: '0-100 多系统表型负担',
     model: '模型',
     variablesUsed: '使用变量数',
     trainingAuc: '训练集 AUC {auc}',
-    stageProbabilityProfile: '分期概率分布',
-    stageLabel: '{stage} 期',
+    stageProbabilityProfile: '表型分期 profile',
+    stageLabel: '{stage}',
+    currentPhenotypeExplanation: '当前临床表型解释',
+    currentPhenotypeContribution: '当前临床表型贡献来源',
+    contributionSentence:
+      '该患者当前临床表型主要受到分期/人口学因素、脑小血管病和凝血系统影响。',
     explanationLayer: '解释层',
-    systemContribution: '系统贡献',
+    systemContribution: '当前临床表型贡献来源',
     topVariables: '主要变量',
-    largestScoreDrivers: '评分主要驱动因素',
+    largestScoreDrivers: '当前临床表型主要驱动因素',
+    driverSentence:
+      'PWMH、DWMH、TT、ATIII 等变量贡献较高，提示脑小血管病和凝血系统异常可能是当前临床表现偏重的重要解释因素。',
+    futureRiskTitle: '探索性未来进展风险',
+    baselineClinicalStage: '基线临床分期',
+    futureRiskLevel: '未来分期加重风险等级',
+    riskDrivers: '主要风险驱动因素',
+    riskApplicability: '适用性提示',
+    riskText:
+      '基于当前临床分期和 score3 多系统表型负担，原型提示其未来临床分期加重风险为{level}。该结果属于探索性预测，需结合后续临床随访进一步判断。',
+    stageCaution:
+      '对于基线 Stage 5-6 患者，由于继续分期加重空间有限，未来风险结果应谨慎解释。',
+    reportTitle: '个体化解释报告',
+    reportIntro:
+      '该模块把结果总览自动整理成一段完整解释，适合后续扩展为 Download report / Export PDF。',
+    reportRelationTitle: '1. 患者当前临床-生物学关系',
+    reportPhenotypeTitle: '2. Score3 当前多系统表型解释',
+    reportContributionTitle: '3. 系统贡献和主要驱动因素',
+    reportRiskTitle: '4. 未来进展风险',
+    reportLimitTitle: '5. 解释限制',
+    workflowCompactKicker: '模型路线',
+    workflowCompactTitle: '该表型评分如何构建',
+    workflowBackbone: '统计主线',
+    workflowRouteLabel: '模型开发路线',
+    selectionKicker: '筛选路径',
+    selectionTitle: '变量筛选路径已匿名汇总展示',
+    workflow: {
+      route: {
+        ordinal: {
+          title: '有序 Logistic 回归',
+          text: '围绕当前临床表型进行可解释评分建模。',
+        },
+      },
+      methods: {
+        randomForest: { title: '随机森林' },
+        methodB: { title: 'XX XX' },
+        methodC: { title: 'XX XX' },
+      },
+      scores: {
+        score0: '仅含生物学分期',
+        score1: '核心入选变量',
+        score2: '扩展入选变量',
+        score3: '当前多系统表型变量',
+      },
+    },
     modelDevelopmentEvidence: '模型开发证据',
     trainingPerformance: '训练集表现',
     modelColumn: '模型',
@@ -313,8 +339,8 @@ const translations = {
     interpretationLabel: '解释',
     prototypeNoteLabel: '原型说明',
     prototypeNote:
-      '当前评分仅用于界面原型设计。用于临床或研究前，应将占位权重替换为最终有序 Logistic 模型系数。',
-    footerLine1: '阿尔茨海默病临床分期研究原型',
+      '当前评分仅用于界面原型和研究汇报。用于正式研究或临床前，应将占位权重替换为最终统计模型系数。',
+    footerLine1: 'AD 多系统临床表型解释研究原型',
     footerLine2: '仅用于模型可视化和研究汇报。',
     footerLine3:
       '© 2026 KKjiaming。保留所有权利。未经书面许可，不得复制、转载、改编、商用或用于临床用途。',
@@ -324,10 +350,10 @@ const translations = {
       range: '{field}必须在 {min}-{max}{unit} 范围内。',
     },
     groupTitles: {
-      stage: '分期与人口学',
+      stage: '基线临床与人口学信息',
       csvd: '脑小血管病',
       coagulation: '凝血系统',
-      metabolic: '代谢、肾功能与心血管',
+      metabolic: '代谢、肾功能与心血管相关',
       immune: '炎症、免疫与肿瘤标志物',
     },
     systemLabels: {
@@ -339,12 +365,13 @@ const translations = {
     },
     modelTitles: {
       score0: '仅生物学分期',
-      score1: '三种方法均入选变量',
-      score2: '至少两种方法入选变量',
-      score3: '任一方法入选变量',
+      score1: '核心入选变量',
+      score2: '扩展入选变量',
+      score3: '当前多系统表型模型',
     },
     fieldLabels: {
-      biologicalStage: '基线生物学分期',
+      currentClinicalStage: '当前临床分期',
+      biologicalStage: '生物学分期',
       age: '年龄',
       educationYears: '受教育年限',
       BMI: 'BMI',
@@ -365,6 +392,7 @@ const translations = {
       CA72_4: 'CA72-4',
     },
     fieldNotes: {
+      currentClinicalStage: '医生已评估的当前临床分期',
       biologicalStage: '基于基线病理特征整理的 AD 生物学分期',
       age: '患者基线评估时年龄',
       educationYears: '正规教育累计年限',
@@ -385,114 +413,134 @@ const translations = {
       IgL: '免疫球蛋白 λ 轻链，免疫相关指标',
       CA72_4: '糖类抗原 72-4，肿瘤相关血清标志物',
     },
-    interpretation: {
-      '0-2': {
-        level: '预测临床分期 0-2',
-        text: '当前多维度特征更接近最早期临床分期组。',
-        advice: '建议复核生物学分期一致性、认知测评和纵向随访计划。',
-      },
-      '3-4': {
-        level: '预测临床分期 3-4',
-        text: '当前多维度特征最符合中期临床分期。',
-        advice: '该亚组也最适合进一步查看探索性的未来进展风险。',
-      },
-      '5': {
-        level: '预测临床分期 5',
-        text: '当前特征提示临床负担较早期疾病更重。',
-        advice:
-          '建议查看系统贡献，确认是否由血管、凝血、代谢或炎症因素驱动。',
-      },
-      '6': {
-        level: '预测临床分期 6',
-        text: '当前特征最接近本原型中的最高临床分期组。',
-        advice: '请将该结果作为解释型研究信号，并结合临床评估复核。',
-      },
+    relationTypes: {
+      clinicalHeavy: '临床偏重型 / 易感型',
+      clinicalMild: '临床偏轻型 / 韧性型',
+      concordant: '临床-生物学基本一致型',
+    },
+    burdenLevels: {
+      low: '低',
+      moderate: '中等',
+      high: '高',
+    },
+    riskLevels: {
+      low: '低',
+      moderate: '中等',
+      high: '高',
+      caution: '谨慎解释',
+    },
+    applicabilityText: {
+      suitable: '{stage} 属于 Stage 1-4，适合进行未来风险探索。',
+      cautious: '{stage} 属于 Stage 5-6，未来风险结果应谨慎解释。',
+    },
+    reportTemplates: {
+      relation:
+        '该患者当前临床分期为 {clinicalStage}，生物学分期为 {biologicalStage}。相较于该生物学病理负担通常提示的临床严重程度，其当前表现归类为{relation}。',
+      phenotype:
+        '在加入 score3 多系统指标后，当前多系统表型得分为 {score}/100，属于{burden}负担水平。该结果提示，其当前临床表现可能不完全由 AD 生物学病理解释。',
+      contribution:
+        '系统贡献分析显示，该患者当前临床表型主要受到分期/人口学、脑小血管病和凝血系统影响。主要驱动变量包括 {variables}。',
+      risk:
+        '该患者基线临床分期为 {clinicalStage}。基于当前临床分期和多系统表型负担，探索性估计 1 年进展风险约为 {oneYear}%，2 年风险约为 {twoYear}%。',
+      limit:
+        '未来风险结果属于探索性预测，需结合后续临床随访进一步判断。对于 Stage 5-6 基线患者，由于继续分期加重空间有限，结果应谨慎解释。',
     },
   },
   sv: {
-    appTitle: 'Multidimensionell prediktiv modell för Alzheimers sjukdom',
+    appTitle: 'AD-verktyg för multisystemisk klinisk fenotyp',
     appDescription:
-      'Projektet använder biologisk stadieindelning tillsammans med kliniska, blodbaserade och bildrelaterade indikatorer för att förutsäga aktuellt stadium vid Alzheimers sjukdom och framtida progressionsrisk.',
-    workflowKicker: 'Tolkningsbar modellväg',
-    workflowTitle: 'Regressionsdriven utveckling, inte svart låda',
-    workflowDescription:
-      'Prototypen lyfter fram en förklarande modellkedja: ordinal logistisk regression är den statistiska ryggraden, tre oberoende urvalsmetoder jämförs och därefter byggs progressiva poängmodeller.',
-    workflowCompactKicker: 'Modellväg',
-    workflowCompactTitle: 'Hur poängen byggdes',
-    workflowCompactDescription:
-      'Resultatet sammanfattar en tolkningsbar väg: ordinal logistisk regression som ryggrad, med tre urvalsvägar före poängkonstruktion.',
-    workflowBackbone: 'Ryggrad',
-    workflowRouteLabel: 'Modellutvecklingsväg',
-    selectionKicker: 'Urvalsvägar',
-    selectionTitle: 'Variabelurvalsvägar sammanfattas för visning',
-    workflow: {
-      route: {
-        describe: {
-          title: 'Deskriptiv analys',
-          text: 'Rensa variabler, granska fördelningar och definiera kliniska stadiegrupper.',
-        },
-        ordinal: {
-          title: 'Ordinal logistisk regression',
-          text: 'Kör univariata och multivariata ordinala modeller för aktuellt kliniskt stadium.',
-        },
-        collinearity: {
-          title: 'Kollinearitetskontroll',
-          text: 'Minska instabil överlappning före slutligt variabelurval.',
-        },
-      },
-      methods: {
-        randomForest: {
-          title: 'Random forest',
-          text: 'Fångar icke-linjära signaler och interaktioner samtidigt som relevanta variabler rangordnas.',
-        },
-        methodB: {
-          title: 'XX XX',
-          text: 'Ytterligare maskerad variabelurvalsväg.',
-        },
-        methodC: {
-          title: 'XX XX',
-          text: 'Ytterligare maskerad variabelurvalsväg.',
-        },
-      },
-      scores: {
-        score0: 'Endast biologiskt stadium',
-        score1: 'Variabler valda av alla tre metoder',
-        score2: 'Variabler valda av minst två metoder',
-        score3: 'Variabler valda av minst en metod',
-      },
-    },
+      'En forskningsprototyp som förklarar varför klinisk presentation kan vara tyngre eller mildare än biologisk AD-belastning och utforskar framtida progressionsrisk.',
     language: 'Språk',
-    mainModelLayer: 'Huvudmodell',
-    chooseModel: 'Välj poängmodell',
+    mainModelLayer: 'Analysmodell',
+    chooseModel: 'Fast fenotypmodell',
+    fixedModelHelper: 'score3 kombinerar aktuellt kliniskt stadium med 19 multisystemvariabler.',
     inputLayer: 'Inmatning',
     variables: 'variabler',
     additionalFactorsTitle: 'Andra möjliga faktorer',
     additionalFactorsText:
-      'Variablerna som visas är aktuella modellindata; andra kliniska, biologiska, bildrelaterade, livsstils- och behandlingsfaktorer kan också ha betydelse.',
-    predictButton: 'Förutsäg kliniskt stadium',
-    predictingButton: 'Förutsäger...',
-    predictingKicker: 'Modellen körs',
-    predictingTitle: 'Analyserar multidimensionell profil',
+      'De visade variablerna är prototypens aktuella indata; andra kliniska, biologiska, bildrelaterade, livsstils- och behandlingsfaktorer kan också påverka fenotyp och progression.',
+    predictButton: 'Skapa fenotypöversikt',
+    predictingButton: 'Analyserar...',
+    predictingKicker: 'Prototypen körs',
+    predictingTitle: 'Bygger klinisk fenotypförklaring',
     predictingText:
-      'Standardiserar indata, tillämpar prototyppoängen och sammanställer kliniskt stadium.',
-    predictingStep1: 'Kliniskt och biologiskt stadium',
-    predictingStep2: 'Skanning av systembidrag',
-    predictingStep3: 'Sannolikhetsprofil för stadium',
+      'Jämför kliniskt och biologiskt stadium, beräknar multisystemisk belastning och sammanställer explorativ progressionsrisk.',
+    predictingStep1: 'Klinisk-biologisk relation',
+    predictingStep2: 'Multisystemisk fenotypbelastning',
+    predictingStep3: 'Progressionsrisköversikt',
     scoringModel: 'Poängmodell',
-    predictionLayer: 'Prediktionslager',
+    predictionLayer: 'Resultatöversikt',
+    resultOverviewTitle: 'Klinisk fenotypförklaring och progressionsrisk',
+    resultOverviewText:
+      'Resultatet separerar aktuell fenotypbelastning från framtida progressionsrisk.',
     currentClinicalStage: 'Aktuellt kliniskt stadium',
-    predictedStage: 'Predikterat stadium',
-    prototypeScore: 'Prototyppoäng',
-    scaledScore: '0-100 skalad poäng',
+    biologicalStage: 'Biologiskt stadium',
+    clinicalBiologicalRelation: 'Klinisk-biologisk relation',
+    phenotypeScore: 'Score3 multisystemisk fenotyppoäng',
+    phenotypeBurden: 'Aktuell multisystemisk fenotypbelastning',
+    progressionRisk: 'Framtida progressionsrisk',
+    oneYearRisk: '1-årsrisk',
+    twoYearRisk: '2-årsrisk',
+    applicability: 'Tillämpningsnotering',
+    prototypeScore: 'Fenotyppoäng',
+    scaledScore: '0-100 fenotypbelastning',
     model: 'Modell',
     variablesUsed: 'Använda variabler',
     trainingAuc: '{auc} tränings-AUC',
-    stageProbabilityProfile: 'Sannolikhetsprofil för stadium',
-    stageLabel: 'Stadium {stage}',
-    explanationLayer: 'Förklaringslager',
-    systemContribution: 'Systembidrag',
+    stageProbabilityProfile: 'Fenotypstadieprofil',
+    stageLabel: '{stage}',
+    currentPhenotypeExplanation: 'Aktuell klinisk fenotypförklaring',
+    currentPhenotypeContribution: 'Bidragskällor till aktuell fenotyp',
+    contributionSentence:
+      'Den aktuella fenotypen formas främst av stadie/demografi, småkärlssjukdom och koagulationssignaler.',
+    explanationLayer: 'Förklaring',
+    systemContribution: 'Bidragskällor till aktuell fenotyp',
     topVariables: 'Viktigaste variabler',
-    largestScoreDrivers: 'Största poängdrivare',
+    largestScoreDrivers: 'Huvudsakliga fenotypdrivare',
+    driverSentence:
+      'Bidrag från PWMH, DWMH, TT, ATIII och relaterade variabler kan bidra till att förklara en tyngre klinisk presentation.',
+    futureRiskTitle: 'Explorativ framtida progressionsrisk',
+    baselineClinicalStage: 'Kliniskt stadium vid baslinjen',
+    futureRiskLevel: 'Risknivå för stadieprogression',
+    riskDrivers: 'Huvudsakliga riskdrivare',
+    riskApplicability: 'Tillämpningsnotering',
+    riskText:
+      'Baserat på aktuellt kliniskt stadium och score3-belastning antyder prototypen {level} framtida progressionsrisk. Resultatet är explorativt och bör tolkas med uppföljning.',
+    stageCaution:
+      'För patienter i Stage 5-6 bör framtida risk tolkas försiktigt eftersom återstående progressionsutrymme är begränsat.',
+    reportTitle: 'Individualiserad tolkningsrapport',
+    reportIntro:
+      'Denna sektion omorganiserar översikten till en läsbar rapport för forskningskommunikation.',
+    reportRelationTitle: '1. Klinisk-biologisk relation',
+    reportPhenotypeTitle: '2. Score3 multisystemisk fenotypförklaring',
+    reportContributionTitle: '3. Systembidrag och drivare',
+    reportRiskTitle: '4. Framtida progression',
+    reportLimitTitle: '5. Tolkningsbegränsningar',
+    workflowCompactKicker: 'Modellväg',
+    workflowCompactTitle: 'Hur fenotyppoängen byggdes',
+    workflowBackbone: 'Ryggrad',
+    workflowRouteLabel: 'Modellutvecklingsväg',
+    selectionKicker: 'Urvalsvägar',
+    selectionTitle: 'Variabelurvalsvägar sammanfattas anonymt',
+    workflow: {
+      route: {
+        ordinal: {
+          title: 'Ordinal logistisk regression',
+          text: 'Tolkningsbar modellering av aktuell klinisk fenotyp.',
+        },
+      },
+      methods: {
+        randomForest: { title: 'Random forest' },
+        methodB: { title: 'XX XX' },
+        methodC: { title: 'XX XX' },
+      },
+      scores: {
+        score0: 'Endast biologiskt stadium',
+        score1: 'Kärnvariabler',
+        score2: 'Utökade variabler',
+        score3: 'Aktuella multisystemiska fenotypvariabler',
+      },
+    },
     modelDevelopmentEvidence: 'Evidens från modellutveckling',
     trainingPerformance: 'Prestanda i träningsdata',
     modelColumn: 'Modell',
@@ -502,35 +550,34 @@ const translations = {
     externalValidationSummary:
       'score3 OR {or}, AUC {auc}, C-index {cIndex}.',
     externalValidationNote:
-      'Extern validering stödjer modellens riktning och riskgradient, men bör tolkas som preliminär på grund av saknade variabler och obalanserade kliniska stadier.',
+      'Extern validering stödjer riktning och riskgradient, men bör tolkas som preliminär.',
     exploratoryLongitudinalSignal: 'Explorativ longitudinell signal',
-    longitudinalCohort: 'AD-undergrupp i stadium 3-4',
+    longitudinalCohort: 'AD-undergrupp i Stage 3-4',
     longitudinalOutcome: 'Progression av kliniskt stadium',
     longitudinalSummary: '{outcome}: AUC {auc}, OR {or}, P = {pValue}.',
-    longitudinalNote:
-      'Detta är en kompletterande signal, inte modellens primära mål.',
+    longitudinalNote: 'Detta är en kompletterande signal, inte modellens primära mål.',
     interpretationLabel: 'Tolkning',
     prototypeNoteLabel: 'Prototypnotering',
     prototypeNote:
-      'Prototyppoängen är endast avsedd för gränssnittsdesign. Ersätt platshållarvikter med slutliga ordinala logistiska modellkoefficienter före klinisk användning eller forskningsanvändning.',
-    footerLine1: 'Forskningsprototyp för klinisk stadieindelning vid Alzheimers sjukdom',
+      'Prototyppoängen är endast avsedd för gränssnittsdesign och forskningskommunikation.',
+    footerLine1: 'Forskningsprototyp för AD multisystemisk klinisk fenotyp',
     footerLine2: 'Endast för modellvisualisering och forskningskommunikation.',
     footerLine3:
-      '© 2026 KKjiaming. Alla rättigheter förbehållna. Ingen kopiering, vidarepublicering, bearbetning, kommersiell användning eller klinisk användning utan skriftligt tillstånd.',
+      '© 2026 KKjiaming. Alla rättigheter förbehållna. Ingen användning utan skriftligt tillstånd.',
     validation: {
       invalidModel: 'Välj en giltig modell.',
       invalidSelect: 'Välj ett giltigt värde för {field}.',
       range: '{field} måste vara mellan {min}-{max}{unit}.',
     },
     groupTitles: {
-      stage: 'Stadieindelning och demografi',
+      stage: 'Klinisk baslinje och demografi',
       csvd: 'Cerebral småkärlssjukdom',
       coagulation: 'Koagulation',
       metabolic: 'Metabolism, njurfunktion och kardiovaskulärt',
       immune: 'Inflammation, immunitet och tumörmarkörer',
     },
     systemLabels: {
-      stage: 'Stadieindelning / demografi',
+      stage: 'Stadie / demografi',
       csvd: 'Cerebral småkärlssjukdom',
       coagulation: 'Koagulation',
       metabolic: 'Metabolism / njure / kardiovaskulärt',
@@ -538,12 +585,13 @@ const translations = {
     },
     modelTitles: {
       score0: 'Endast biologiskt stadium',
-      score1: 'Variabler valda av alla tre metoder',
-      score2: 'Variabler valda av minst två metoder',
-      score3: 'Variabler valda av minst en metod',
+      score1: 'Kärnvariabler',
+      score2: 'Utökade variabler',
+      score3: 'Aktuell multisystemisk fenotypmodell',
     },
     fieldLabels: {
-      biologicalStage: 'Biologiskt stadium vid baslinjen',
+      currentClinicalStage: 'Aktuellt kliniskt stadium',
+      biologicalStage: 'Biologiskt stadium',
       age: 'Ålder',
       educationYears: 'Utbildningsår',
       BMI: 'BMI',
@@ -564,55 +612,49 @@ const translations = {
       CA72_4: 'CA72-4',
     },
     fieldNotes: {
-      biologicalStage: 'AD-biologiskt stadium baserat på patologiprofil vid baslinjen',
-      age: 'Patientens ålder vid baslinjebedömning',
-      educationYears: 'Totalt antal år med formell utbildning',
+      currentClinicalStage: 'Klinikerbedömt aktuellt stadium',
+      biologicalStage: 'AD-biologiskt stadium baserat på baslinjepatologi',
+      age: 'Ålder vid baslinjebedömning',
+      educationYears: 'Totala utbildningsår',
       BMI: 'Kroppsmasseindex',
       PWMH: 'Periventrikulär vitsubstanshyperintensitet',
       DWMH: 'Djup vitsubstanshyperintensitet',
-      totalCMB: 'Totalt antal cerebrala mikroblödningar',
-      D_dimer: 'Fibrinnedbrytningsmarkör som speglar koagulations- och fibrinolysaktivering',
-      ATIII: 'Antitrombin III, markör för endogen antikoagulant aktivitet',
-      Fbg: 'Fibrinogen, koagulationssubstrat och inflammationsrelaterat protein',
-      FDP: 'Fibrin/fibrinogen-nedbrytningsprodukter som speglar fibrinolys',
-      TT: 'Trombintid, speglar omvandling från fibrinogen till fibrin',
-      APTT: 'Aktiverad partiell tromboplastintid för intrinsiska/gemensamma koagulationsvägar',
+      totalCMB: 'Totalt antal mikroblödningar',
+      D_dimer: 'Koagulations- och fibrinolysmarkör',
+      ATIII: 'Endogen antikoagulant markör',
+      Fbg: 'Koagulationssubstrat och inflammationsrelaterat protein',
+      FDP: 'Fibrinolysrelaterad nedbrytningsprodukt',
+      TT: 'Trombintid',
+      APTT: 'Aktiverad partiell tromboplastintid',
       LDL_C: 'LDL-kolesterol',
-      LDH: 'Laktatdehydrogenas, enzym kopplat till vävnadsskada och metabolism',
-      Crea: 'Serumkreatinin, markör för njurfunktion',
-      NLR: 'Neutrofil-lymfocytkvot, markör för systemisk inflammation',
-      IgL: 'Immunglobulin lambda-lättkedja, immunrelaterad markör',
-      CA72_4: 'Kolhydratantigen 72-4, tumörassocierad serummarkör',
+      LDH: 'Metabolism- och vävnadsskademarkör',
+      Crea: 'Njurfunktionmarkör',
+      NLR: 'Systemisk inflammationsmarkör',
+      IgL: 'Immunrelaterad markör',
+      CA72_4: 'Tumörassocierad serummarkör',
     },
-    interpretation: {
-      '0-2': {
-        level: 'Predikterat kliniskt stadium 0-2',
-        text:
-          'Den aktuella multidimensionella profilen ligger närmast den tidigaste kliniska stadiegruppen.',
-        advice:
-          'Granska överensstämmelse med biologiskt stadium, kognitiv testning och plan för longitudinell uppföljning.',
-      },
-      '3-4': {
-        level: 'Predikterat kliniskt stadium 3-4',
-        text:
-          'Den aktuella multidimensionella profilen är mest förenlig med ett intermediärt kliniskt stadium.',
-        advice:
-          'Denna undergrupp är också mest relevant för explorativ granskning av progressionsrisk.',
-      },
-      '5': {
-        level: 'Predikterat kliniskt stadium 5',
-        text:
-          'Den aktuella profilen tyder på högre klinisk belastning än vid tidig sjukdom.',
-        advice:
-          'Granska systembidragen och bedöm om vaskulära, koagulationsrelaterade, metabola eller inflammatoriska faktorer driver poängen.',
-      },
-      '6': {
-        level: 'Predikterat kliniskt stadium 6',
-        text:
-          'Den aktuella profilen ligger närmast den mest avancerade kliniska stadiegruppen i denna prototyp.',
-        advice:
-          'Använd resultatet som en förklarande forskningssignal och verifiera mot klinisk bedömning.',
-      },
+    relationTypes: {
+      clinicalHeavy: 'Kliniskt tung / sårbar fenotyp',
+      clinicalMild: 'Kliniskt mild / resilient fenotyp',
+      concordant: 'Klinisk-biologiskt överensstämmande fenotyp',
+    },
+    burdenLevels: { low: 'Låg', moderate: 'Måttlig', high: 'Hög' },
+    riskLevels: { low: 'Låg', moderate: 'Måttlig', high: 'Hög', caution: 'Försiktighet' },
+    applicabilityText: {
+      suitable: '{stage} tillhör Stage 1-4 och passar för explorativ framtida riskgranskning.',
+      cautious: '{stage} tillhör Stage 5-6; framtida risk bör tolkas försiktigt.',
+    },
+    reportTemplates: {
+      relation:
+        'Patienten är för närvarande {clinicalStage}, med {biologicalStage}. Presentationen klassificeras som {relation}.',
+      phenotype:
+        'Med score3 är den multisystemiska fenotyppoängen {score}/100, vilket motsvarar {burden} belastning.',
+      contribution:
+        'Systembidrag visar påverkan från stadie/demografi, småkärlssjukdom och koagulation. Viktiga variabler inkluderar {variables}.',
+      risk:
+        'Baslinjestadiet är {clinicalStage}. Explorativ risk är cirka {oneYear}% vid 1 år och {twoYear}% vid 2 år.',
+      limit:
+        'Riskresultatet är explorativt och bör tolkas med uppföljning; Stage 5-6 kräver särskild försiktighet.',
     },
   },
 };

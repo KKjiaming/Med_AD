@@ -1,8 +1,17 @@
-export const stageOptions = [
-  { value: 'stage_0_2', label: '0-2', score: 18 },
-  { value: 'stage_3_4', label: '3-4', score: 46 },
-  { value: 'stage_5', label: '5', score: 70 },
-  { value: 'stage_6', label: '6', score: 88 },
+export const clinicalStageOptions = [
+  { value: 'stage_1', label: 'Stage 1', shortLabel: '1', score: 20, order: 1 },
+  { value: 'stage_2', label: 'Stage 2', shortLabel: '2', score: 32, order: 2 },
+  { value: 'stage_3', label: 'Stage 3', shortLabel: '3', score: 46, order: 3 },
+  { value: 'stage_4', label: 'Stage 4', shortLabel: '4', score: 58, order: 4 },
+  { value: 'stage_5', label: 'Stage 5', shortLabel: '5', score: 74, order: 5 },
+  { value: 'stage_6', label: 'Stage 6', shortLabel: '6', score: 90, order: 6 },
+];
+
+export const biologicalStageOptions = [
+  { value: 'bio_A', label: 'Biological stage A', shortLabel: 'A', score: 24, order: 1 },
+  { value: 'bio_B', label: 'Biological stage B', shortLabel: 'B', score: 40, order: 2 },
+  { value: 'bio_C', label: 'Biological stage C', shortLabel: 'C', score: 62, order: 3 },
+  { value: 'bio_D', label: 'Biological stage D', shortLabel: 'D', score: 82, order: 4 },
 ];
 
 export const modelOptions = [
@@ -17,7 +26,7 @@ export const modelOptions = [
   {
     id: 'score1',
     label: 'score1',
-    title: 'Variables selected by all three methods',
+    title: 'Core selected variables',
     variableCount: 5,
     auc: 0.79,
     cIndex: 0.79,
@@ -25,7 +34,7 @@ export const modelOptions = [
   {
     id: 'score2',
     label: 'score2',
-    title: 'Variables selected by at least two methods',
+    title: 'Expanded selected variables',
     variableCount: 10,
     auc: 0.83,
     cIndex: 0.819,
@@ -33,7 +42,7 @@ export const modelOptions = [
   {
     id: 'score3',
     label: 'score3',
-    title: 'Variables selected by at least one method',
+    title: 'Current multisystem phenotype model',
     variableCount: 19,
     auc: 0.85,
     cIndex: 0.836,
@@ -90,7 +99,8 @@ export const systemGroups = [
 
 export const initialForm = {
   modelId: 'score3',
-  biologicalStage: 'stage_3_4',
+  currentClinicalStage: 'stage_4',
+  biologicalStage: 'bio_B',
   age: '72',
   educationYears: '9',
   BMI: '23',
@@ -114,13 +124,21 @@ export const initialForm = {
 export const variableGroups = [
   {
     id: 'stage',
-    title: 'Staging and demographics',
+    title: 'Baseline clinical and demographic information',
     fields: [
       {
-        id: 'biologicalStage',
-        label: 'Baseline biological stage',
+        id: 'currentClinicalStage',
+        label: 'Current clinical stage',
         type: 'select',
-        options: stageOptions,
+        options: clinicalStageOptions,
+        inputOnly: true,
+        models: ['score3'],
+      },
+      {
+        id: 'biologicalStage',
+        label: 'Biological stage',
+        type: 'select',
+        options: biologicalStageOptions,
         system: 'stage',
         models: ['score0', 'score1', 'score2', 'score3'],
         weight: 3.2,

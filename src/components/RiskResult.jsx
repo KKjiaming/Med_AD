@@ -8,9 +8,9 @@ import { t, tf } from '../lib/i18n.js';
 
 const selectionMethods = ['randomForest', 'methodB', 'methodC'];
 
-function MetricCard({ label, value, helper }) {
+function MetricCard({ label, value, helper, className = '' }) {
   return (
-    <div className="metric-card">
+    <div className={`metric-card ${className}`}>
       <span>{label}</span>
       <strong>{value}</strong>
       {helper ? <small>{helper}</small> : null}
@@ -79,6 +79,94 @@ function WorkflowSummary({ result, language }) {
   );
 }
 
+function RiskDriverList({ result, language }) {
+  return (
+    <div className="risk-driver-list">
+      {result.riskDrivers.map((item) => (
+        <span key={`${item.type}-${item.id}`}>
+          {item.type === 'system'
+            ? tf(language, `systemLabels.${item.id}`, item.label)
+            : tf(language, `fieldLabels.${item.id}`, item.label)}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function FutureRiskPanel({ result, interpretation, language }) {
+  return (
+    <section className="future-risk-panel">
+      <div className="section-heading">
+        <p className="section-kicker">{t(language, 'exploratoryLongitudinalSignal')}</p>
+        <h3>{t(language, 'futureRiskTitle')}</h3>
+      </div>
+
+      <div className="future-risk-grid">
+        <MetricCard
+          label={t(language, 'baselineClinicalStage')}
+          value={result.currentClinicalStage.label}
+        />
+        <MetricCard
+          label={t(language, 'futureRiskLevel')}
+          value={interpretation.riskLevelLabel}
+          className={result.progressionRisk.level === 'high' ? 'metric-alert' : ''}
+        />
+        <MetricCard
+          label={t(language, 'oneYearRisk')}
+          value={`${result.progressionRisk.oneYearRisk}%`}
+        />
+        <MetricCard
+          label={t(language, 'twoYearRisk')}
+          value={`${result.progressionRisk.twoYearRisk}%`}
+        />
+      </div>
+
+      <div className="risk-copy">
+        <p>
+          {t(language, 'riskText', {
+            level: interpretation.riskLevelLabel,
+          })}
+        </p>
+        <p>{interpretation.applicabilityNote}</p>
+        <p className="caution-text">{t(language, 'stageCaution')}</p>
+      </div>
+
+      <div className="risk-drivers">
+        <strong>{t(language, 'riskDrivers')}</strong>
+        <RiskDriverList result={result} language={language} />
+      </div>
+    </section>
+  );
+}
+
+function ReportPanel({ interpretation, language }) {
+  const sections = [
+    ['reportRelationTitle', interpretation.summary],
+    ['reportPhenotypeTitle', interpretation.phenotypeText],
+    ['reportContributionTitle', interpretation.contributionText],
+    ['reportRiskTitle', interpretation.riskText],
+    ['reportLimitTitle', interpretation.limitText],
+  ];
+
+  return (
+    <section className="report-panel">
+      <div className="section-heading">
+        <p className="section-kicker">{t(language, 'reportTitle')}</p>
+        <h3>{t(language, 'reportTitle')}</h3>
+        <p>{t(language, 'reportIntro')}</p>
+      </div>
+      <div className="report-sections">
+        {sections.map(([titleKey, body]) => (
+          <article key={titleKey}>
+            <h4>{t(language, titleKey)}</h4>
+            <p>{body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 const RiskResult = forwardRef(function RiskResult(
   { result, interpretation, language },
   ref,
@@ -88,39 +176,65 @@ const RiskResult = forwardRef(function RiskResult(
 
   return (
     <section className="result-container" ref={ref} aria-live="polite">
-      <div className="result-hero">
+      <div className="result-hero phenotype-hero">
         <div>
           <p className="section-kicker">{t(language, 'predictionLayer')}</p>
-          <h2>{t(language, 'currentClinicalStage')}</h2>
-          <p>{interpretation.interpretation}</p>
+          <h2>{t(language, 'resultOverviewTitle')}</h2>
+          <p>{t(language, 'resultOverviewText')}</p>
         </div>
-        <div className="stage-badge">
-          <span>{t(language, 'predictedStage')}</span>
-          <strong className={interpretation.className}>
-            {result.predictedStage.label}
-          </strong>
+        <div className="stage-badge relation-badge">
+          <span>{t(language, 'clinicalBiologicalRelation')}</span>
+          <strong className={interpretation.className}>{interpretation.relationLabel}</strong>
         </div>
       </div>
 
-      <div className="metric-grid">
+      <div className="metric-grid summary-grid">
         <MetricCard
-          label={t(language, 'prototypeScore')}
-          value={result.score}
+          label={t(language, 'currentClinicalStage')}
+          value={result.currentClinicalStage.label}
+        />
+        <MetricCard
+          label={t(language, 'biologicalStage')}
+          value={result.biologicalStage.label}
+        />
+        <MetricCard
+          label={t(language, 'phenotypeScore')}
+          value={`${result.score} / 100`}
           helper={t(language, 'scaledScore')}
         />
         <MetricCard
-          label={t(language, 'model')}
-          value={result.model.label}
-          helper={tf(language, `modelTitles.${result.model.id}`, result.model.title)}
+          label={t(language, 'phenotypeBurden')}
+          value={interpretation.burdenLabel}
+          className={result.phenotypeBurden.level === 'high' ? 'metric-alert' : ''}
         />
         <MetricCard
-          label={t(language, 'variablesUsed')}
-          value={result.activeVariableCount}
-          helper={t(language, 'trainingAuc', {
-            auc: result.model.auc.toFixed(2),
-          })}
+          label={t(language, 'progressionRisk')}
+          value={interpretation.riskLevelLabel}
+          className={result.progressionRisk.level === 'high' ? 'metric-alert' : ''}
+        />
+        <MetricCard
+          label={t(language, 'oneYearRisk')}
+          value={`${result.progressionRisk.oneYearRisk}%`}
+        />
+        <MetricCard
+          label={t(language, 'twoYearRisk')}
+          value={`${result.progressionRisk.twoYearRisk}%`}
+        />
+        <MetricCard
+          label={t(language, 'applicability')}
+          value={result.progressionRisk.applicable ? 'Stage 1-4' : 'Stage 5-6'}
+          helper={interpretation.applicabilityNote}
         />
       </div>
+
+      <section className="phenotype-explanation-panel">
+        <div className="section-heading">
+          <p className="section-kicker">{t(language, 'currentPhenotypeExplanation')}</p>
+          <h3>{t(language, 'currentPhenotypeExplanation')}</h3>
+        </div>
+        <p>{interpretation.summary}</p>
+        <p>{interpretation.phenotypeText}</p>
+      </section>
 
       <div className="probability-panel">
         <h3>{t(language, 'stageProbabilityProfile')}</h3>
@@ -128,9 +242,7 @@ const RiskResult = forwardRef(function RiskResult(
           {result.probabilities.map((stage) => (
             <div className="probability-item" key={stage.label}>
               <div className="probability-topline">
-                <span>
-                  {t(language, 'stageLabel', { stage: stage.label })}
-                </span>
+                <span>{t(language, 'stageLabel', { stage: stage.label })}</span>
                 <strong>{stage.probability.toFixed(1)}%</strong>
               </div>
               <div className="bar-track">
@@ -153,6 +265,7 @@ const RiskResult = forwardRef(function RiskResult(
           {result.systemContributions.map((item) => (
             <ContributionBar item={item} key={item.id} language={language} />
           ))}
+          <p className="panel-caption">{t(language, 'contributionSentence')}</p>
         </section>
 
         <section className="insight-panel">
@@ -168,8 +281,15 @@ const RiskResult = forwardRef(function RiskResult(
               </div>
             ))}
           </div>
+          <p className="panel-caption">{t(language, 'driverSentence')}</p>
         </section>
       </div>
+
+      <FutureRiskPanel
+        result={result}
+        interpretation={interpretation}
+        language={language}
+      />
 
       <WorkflowSummary result={result} language={language} />
 
@@ -237,11 +357,9 @@ const RiskResult = forwardRef(function RiskResult(
         </section>
       </div>
 
+      <ReportPanel interpretation={interpretation} language={language} />
+
       <div className="explanation">
-        <p>
-          <strong>{t(language, 'interpretationLabel')}:</strong>{' '}
-          {interpretation.advice}
-        </p>
         <p>
           <strong>{t(language, 'prototypeNoteLabel')}:</strong>{' '}
           {t(language, 'prototypeNote')}

@@ -1,4 +1,8 @@
-import { fields, stageOptions, systemGroups } from './constants.js';
+import {
+  clinicalStageOptions,
+  fields,
+  systemGroups,
+} from './constants.js';
 import { getActiveFields, validateForm } from './validation.js';
 
 function clamp(value, min, max) {
@@ -7,7 +11,7 @@ function clamp(value, min, max) {
 
 function normalizeFieldValue(field, value) {
   if (field.type === 'select') {
-    const option = stageOptions.find((item) => item.value === value);
+    const option = field.options.find((item) => item.value === value);
     return option ? option.score / 100 : 0;
   }
 
@@ -16,33 +20,71 @@ function normalizeFieldValue(field, value) {
   return field.direction === 'inverse' ? 1 - bounded : bounded;
 }
 
-function getPredictedStage(score) {
-  if (score < 34) {
-    return { label: '0-2', className: 'low-risk' };
-  }
-
-  if (score < 58) {
-    return { label: '3-4', className: 'medium-risk' };
-  }
-
-  if (score < 76) {
-    return { label: '5', className: 'elevated-risk' };
-  }
-
-  return { label: '6', className: 'high-risk' };
+function getSelectedOption(options, value) {
+  return options.find((item) => item.value === value) ?? options[0];
 }
 
-function getStageProbabilities(score) {
-  const centers = [
-    { label: '0-2', center: 22 },
-    { label: '3-4', center: 46 },
-    { label: '5', center: 67 },
-    { label: '6', center: 86 },
-  ];
+function getPhenotypeBurden(score) {
+  if (score >= 70) {
+    return { level: 'high', className: 'high-risk' };
+  }
+
+  if (score >= 45) {
+    return { level: 'moderate', className: 'medium-risk' };
+  }
+
+  return { level: 'low', className: 'low-risk' };
+}
+
+function getClinicalBiologicalRelation(clinicalStage, biologicalStage) {
+  const difference = clinicalStage.score - biologicalStage.score;
+
+  if (difference >= 12) {
+    return { type: 'clinicalHeavy', className: 'high-risk', difference };
+  }
+
+  if (difference <= -12) {
+    return { type: 'clinicalMild', className: 'low-risk', difference };
+  }
+
+  return { type: 'concordant', className: 'medium-risk', difference };
+}
+
+function getProgressionRisk(score, clinicalStage) {
+  const applicable = clinicalStage.order <= 4;
+  const oneYearRisk = applicable
+    ? clamp(Math.round(score * 0.2 + clinicalStage.order), 5, 45)
+    : clamp(Math.round(score * 0.08), 4, 18);
+  const twoYearRisk = applicable
+    ? clamp(oneYearRisk * 2, 10, 78)
+    : clamp(Math.round(oneYearRisk * 1.4), 6, 28);
+
+  let level = 'low';
+  if (applicable && oneYearRisk >= 18) {
+    level = 'high';
+  } else if (applicable && oneYearRisk >= 11) {
+    level = 'moderate';
+  } else if (!applicable) {
+    level = 'caution';
+  }
+
+  return {
+    level,
+    applicable,
+    oneYearRisk,
+    twoYearRisk,
+  };
+}
+
+function getStageProfile(score) {
+  const centers = clinicalStageOptions.map((stage) => ({
+    label: stage.label,
+    center: stage.score,
+  }));
 
   const raw = centers.map((stage) => ({
     ...stage,
-    value: Math.exp(-Math.abs(score - stage.center) / 16),
+    value: Math.exp(-Math.abs(score - stage.center) / 18),
   }));
   const total = raw.reduce((sum, item) => sum + item.value, 0);
 
@@ -50,6 +92,26 @@ function getStageProbabilities(score) {
     label: item.label,
     probability: (item.value / total) * 100,
   }));
+}
+
+function getRiskDrivers(systemContributions, variableContributions) {
+  const topSystems = systemContributions
+    .filter((item) => item.id !== 'stage')
+    .sort((a, b) => b.percent - a.percent)
+    .slice(0, 2)
+    .map((item) => ({ type: 'system', id: item.id, label: item.label }));
+
+  const preferredVariables = ['NLR', 'Crea', 'TT', 'ATIII', 'PWMH', 'DWMH'];
+  const topVariables = variableContributions
+    .filter((item) => preferredVariables.includes(item.id))
+    .sort(
+      (a, b) =>
+        preferredVariables.indexOf(a.id) - preferredVariables.indexOf(b.id),
+    )
+    .slice(0, 2)
+    .map((item) => ({ type: 'variable', id: item.id, label: item.label }));
+
+  return [...topSystems, ...topVariables];
 }
 
 export function calculateStageModel(form, language = 'en') {
@@ -80,7 +142,8 @@ export function calculateStageModel(form, language = 'en') {
     (sum, item) => sum + item.weighted,
     0,
   );
-  const score = Math.round((weightedSum / totalWeight) * 100);
+  const rawScore = totalWeight > 0 ? (weightedSum / totalWeight) * 100 : 0;
+  const score = clamp(Math.round(41 + rawScore * 0.8), 0, 100);
 
   const systemContributions = systemGroups.map((system) => {
     const contribution = variableContributions
@@ -109,12 +172,38 @@ export function calculateStageModel(form, language = 'en') {
     }))
     .sort((a, b) => b.weighted - a.weighted);
 
+  const currentClinicalStageField = fields.find(
+    (field) => field.id === 'currentClinicalStage',
+  );
+  const biologicalStageField = fields.find((field) => field.id === 'biologicalStage');
+  const currentClinicalStage = getSelectedOption(
+    currentClinicalStageField.options,
+    values.currentClinicalStage,
+  );
+  const biologicalStage = getSelectedOption(
+    biologicalStageField.options,
+    values.biologicalStage,
+  );
+  const phenotypeBurden = getPhenotypeBurden(score);
+  const clinicalBiologicalRelation = getClinicalBiologicalRelation(
+    currentClinicalStage,
+    biologicalStage,
+  );
+  const progressionRisk = getProgressionRisk(score, currentClinicalStage);
+  const riskDrivers = getRiskDrivers(systemContributions, rankedVariables);
+
   return {
     model,
     score,
+    rawScore,
     activeVariableCount: activeFields.length,
-    predictedStage: getPredictedStage(score),
-    probabilities: getStageProbabilities(score),
+    currentClinicalStage,
+    biologicalStage,
+    clinicalBiologicalRelation,
+    phenotypeBurden,
+    progressionRisk,
+    riskDrivers,
+    probabilities: getStageProfile(score),
     systemContributions,
     variableContributions: rankedVariables,
   };
